@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-import type { SensorReading, SimulatedData, TimeSeriesDataPoint } from '@/lib/types';
+import type { SensorReading, SimulatedData, TimeSeriesDataPoint } from '../lib/types';
 
 const MAX_DATA_POINTS = 50; // Keep the last N data points for the chart
 

@@ -1,5 +1,5 @@
-import type { SensorReading } from '@/lib/types';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { SensorReading } from '../../lib/types';
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Thermometer, Droplet } from 'lucide-react';
 
 interface SensorDisplayProps {

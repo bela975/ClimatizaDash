@@ -1,6 +1,6 @@
 "use client";
 
-import type { TimeSeriesDataPoint } from '@/lib/types';
+import type { TimeSeriesDataPoint } from '../../lib/types';
 import { TrendingUp } from "lucide-react";
 import { CartesianGrid, Line, LineChart, XAxis, YAxis, Tooltip } from "recharts";
 import {
@@ -10,13 +10,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "../ui/card";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/components/ui/chart";
+} from "../ui/chart";
 import { useMemo, useState, useEffect } from 'react';
 
 interface TimeSeriesChartProps {

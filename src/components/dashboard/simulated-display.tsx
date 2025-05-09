@@ -1,5 +1,5 @@
-import type { SimulatedData } from '@/lib/types';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { SimulatedData } from '../../lib/types';
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Thermometer, Droplet, Users } from 'lucide-react';
 
 interface SimulatedDisplayProps {

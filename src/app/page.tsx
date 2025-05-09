@@ -1,11 +1,11 @@
 "use client";
 
-import { SensorDisplay } from "@/components/dashboard/sensor-display";
-import { SimulatedDisplay } from "@/components/dashboard/simulated-display";
-import { TimeSeriesChart } from "@/components/dashboard/time-series-chart";
-import { useMockData } from "@/hooks/use-mock-data";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Slider } from "@/components/ui/slider"; // Assuming you might want manual control later
+import { SensorDisplay } from "../components/dashboard/sensor-display";
+import { SimulatedDisplay } from "../components/dashboard/simulated-display";
+import { TimeSeriesChart } from "../components/dashboard/time-series-chart";
+import { useMockData } from "../hooks/use-mock-data";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Slider } from "../components/ui/slider"; // Assuming you might want manual control later
 
 export default function Home() {
   const { sensorData, simulatedData, timeSeriesData, potentiometerValue } = useMockData();

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans'; // Correct import for Geist Sans
 import { GeistMono } from 'geist/font/mono'; // Correct import for Geist Mono
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster"; // Import Toaster
+import { Toaster } from "../components/ui/toaster"; // Import Toaster
 
 export const metadata: Metadata = {
   title: 'Sensor Dashboard', // Updated Title
