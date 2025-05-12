@@ -1,11 +1,39 @@
-const admin = require("firebase-admin");
-const serviceAccount = require('../keys/sensor-dashboard-2qx49-firebase-adminsdk-fbsvc-ee1b602d4a.json')
+import { initializeApp } from "firebase/app"
+import { 
+    getDatabase,
+    ref,
+    onValue,
+    set,
+    push,
+    update,
+    remove,
+    type DataSnapshot,
+    type DatabaseReference
+} from "firebase/database"
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://sensor-dashboard-2qx49-default-rtdb.firebaseio.com"
-})
+const firebaseConfig ={
+    apiKey: "CBuc7JuanfWmscKLyIAJyOBoTA0k46PzBar8FJu4",
+    authDomain: "climatizarecife-2025.firebaseapp.com",
+    databaseURL: "https://climatizarecife-2025-default-rtdb.firebaseio.com/",
+    projectId: "climatizarecife-2025",
+    storageBucket: "climatizarecife-2025.appspot.com"
+}
 
-const db = admin.database()
-const ref = db.ref("sensors")
-const dht11Ref = ref.child("dht11")
+const app = initializeApp(firebaseConfig)
+
+const database = getDatabase(app)
+
+export {
+    database,
+    ref,
+    onValue,
+    set,
+    push,
+    update,
+    remove,
+}
+
+export type {
+    DataSnapshot,
+    DatabaseReference
+}

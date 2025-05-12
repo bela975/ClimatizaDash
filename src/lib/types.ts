@@ -6,7 +6,7 @@ export interface SensorReading {
 export interface SimulatedData {
   temperature: number;
   humidity: number;
-  peopleCount: number;
+  presence: boolean;
 }
 
 export interface TimeSeriesDataPoint {

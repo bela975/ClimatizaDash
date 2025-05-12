@@ -1,6 +1,6 @@
 import type { SimulatedData } from '../../lib/types';
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Thermometer, Droplet, Users } from 'lucide-react';
+import { Thermometer, Droplet, ThumbsDown, ThumbsUp } from 'lucide-react';
 
 interface SimulatedDisplayProps {
   data: SimulatedData | null;
@@ -33,14 +33,23 @@ export function SimulatedDisplay({ data }: SimulatedDisplayProps) {
           </div>
         </div>
         <div className="flex items-center space-x-3">
-          <Users className="h-6 w-6 text-accent" />
+          {data ? (
+            data.presence ? (
+              <ThumbsUp className="h-6 w-6 text-green-600" />
+            ) : (
+              <ThumbsDown className="h-6 w-6 text-red-600" />
+            )
+          ) : (
+            <div className="h-6 w-6 text-muted-foreground">---</div>
+          )}
           <div>
-            <p className="text-sm text-muted-foreground">People Count</p>
+            <p className="text-sm text-muted-foreground">Presença</p>
             <p className="text-2xl font-bold">
-              {data ? data.peopleCount : '---'}
+              {data ? (data.presence ? "Detectada" : "Ausente") : '---'}
             </p>
           </div>
         </div>
+
       </CardContent>
     </Card>
   );
