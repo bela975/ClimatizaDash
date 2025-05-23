@@ -8,7 +8,7 @@ export default function ToggleSwitch() {
   return (
     <div className="flex flex-col items-center gap-2 p-4 bg-white rounded-xl shadow-md border border-gray-200">
       <Label htmlFor="ligar" className="text-lg font-semibold text-[#005BAC]">
-        Monitoramento
+        Ventilador
       </Label>
       <div className="flex items-center gap-3">
         <span
