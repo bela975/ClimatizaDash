@@ -13,6 +13,9 @@ import { Clock } from "lucide-react"
 import { OrbitingLogo } from "@/components/dashboard/OrbitingLogo"
 import { ClockNow } from "@/components/dashboard/ClockNow"
 
+import ToggleSwitch from "@/components/ui/ToggleSwitch"
+
+
 export default function Home() {
   const { potentiometerValue } = useMockData()
   const timeSeriesData = useTimeSeriesData()
@@ -25,6 +28,8 @@ export default function Home() {
       <div className="w-full max-w-4xl flex flex-col items-center gap-6 mb-10">
         <OrbitingLogo />
 
+        {/* 🔥 Adicionando Toggle */}
+        <ToggleSwitch />
         <div className="bg-[#e6f0ff] text-[#005BAC] rounded-xl shadow-md px-6 py-4 text-center flex flex-col items-center">
           <Clock className="w-6 h-6 text-blue-500 mb-2" />
           <p className="text-sm text-blue-500">Hora</p>
