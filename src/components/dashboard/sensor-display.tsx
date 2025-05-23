@@ -17,7 +17,9 @@ export function SensorDisplay({ data }: SensorDisplayProps) {
           <Thermometer className="w-6 h-6 mb-2 text-red-400" />
           <p className="text-sm text-blue-200">Temperatura</p>
           <p className="text-2xl font-bold">
-            {data ? `${data.temperatura.toFixed(1).replace(".", ",")}°C` : '---'}
+            {typeof data?.temperatura === "number"
+              ? `${data.temperatura.toFixed(1).replace(".", ",")}°C`
+              : '---'}
           </p>
         </CardContent>
       </Card>
@@ -28,7 +30,9 @@ export function SensorDisplay({ data }: SensorDisplayProps) {
           <Droplet className="w-6 h-6 mb-2 text-blue-400" />
           <p className="text-sm text-blue-200">Umidade</p>
           <p className="text-2xl font-bold">
-            {data ? `${data.umidade.toFixed(1).replace(".", ",")}%` : '---'}
+            {typeof data?.umidade === "number"
+              ? `${data.umidade.toFixed(1).replace(".", ",")}%`
+              : '---'}
           </p>
         </CardContent>
       </Card>
