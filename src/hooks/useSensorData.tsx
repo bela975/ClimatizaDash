@@ -1,46 +1,38 @@
 import { useEffect, useState } from "react"
-import { ref, onValue, database } from "../app/firebase"
+import { ref, onValue, query, limitToLast, DatabaseReference } from "firebase/database"
+import { database } from "../app/firebase"
 
 interface SensorReading {
-    temperature: number;
-    humidity: number;
+    hora: string;
+    presenca: string;
+    temperatura: number;
+    umidade: number;
 }
 
 export function useSensorData() {
-    const [data, setData] = useState<SensorReading |  null>(null)
-    
+    const [data, setData] = useState<SensorReading | null>(null)
+
     useEffect(() => {
-        const tempRef = ref(database, "/sensores/temperatura_real")
-        const humRef = ref(database, "/sensores/umidade_real")
+        const leiturasRef = ref(database, "leituras")
+        const ultimasLeituras = query(leiturasRef, limitToLast(1))
 
-        let temperature = 0
-        let humidity = 0
+        const unsubscribe = onValue(ultimasLeituras, (snapshot) => {
+            const val = snapshot.val()
+            if (val) {
+                const ultimaChave = Object.keys(val)[0]
+                const ultimaLeitura = val[ultimaChave]
 
-        const unsubTemp = onValue(tempRef, (snap) => {
-            const val = snap.val()
-            if (typeof val === "number") {
-                temperature = val
-                setData((prev) => ({
-                    temperature: val,
-                    humidity: prev?.humidity ?? humidity,
-                }))
-            }
-        })
-
-        const unsubHum = onValue(humRef, (snap) => {
-            const val = snap.val()
-            if (typeof val === "number") {
-                humidity = val
-                setData((prev) => ({
-                    temperature: prev?.temperature ?? temperature,
-                    humidity: val,
-                }))
+                setData({
+                    hora: ultimaLeitura.hora,
+                    presenca: ultimaLeitura.presenca,
+                    temperatura: ultimaLeitura.temperatura,
+                    umidade: ultimaLeitura.umidade,
+                })
             }
         })
 
         return () => {
-            unsubTemp()
-            unsubHum()
+            unsubscribe()
         }
     }, [])
 

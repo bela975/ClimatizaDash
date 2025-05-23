@@ -1,38 +1,52 @@
-import type { SensorReading } from '../../lib/types';
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Thermometer, Droplet } from 'lucide-react';
+import type { SensorReading } from '../../lib/types'
+import { Card, CardContent } from "../ui/card"
+import { Thermometer, Droplet, User } from 'lucide-react'
+import clsx from 'clsx'
 
 interface SensorDisplayProps {
-  data: SensorReading | null;
+  data: SensorReading | null
 }
 
 export function SensorDisplay({ data }: SensorDisplayProps) {
   return (
-    <Card className="shadow-md transition-shadow hover:shadow-lg">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-lg font-semibold text-primary">DHT11 Sensor</CardTitle>
-        {/* Placeholder for status indicator if needed */}
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="flex items-center space-x-3">
-          <Thermometer className="h-6 w-6 text-destructive" />
-          <div>
-            <p className="text-sm text-muted-foreground">Temperature</p>
-            <p className="text-2xl font-bold">
-              {data ? `${data.temperature.toFixed(1)}°C` : '---'}
-            </p>
-          </div>
-        </div>
-        <div className="flex items-center space-x-3">
-          <Droplet className="h-6 w-6 text-blue-500" />
-          <div>
-            <p className="text-sm text-muted-foreground">Humidity</p>
-            <p className="text-2xl font-bold">
-              {data ? `${data.humidity.toFixed(1)}%` : '---'}
-            </p>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
-  );
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+      
+      {/* TEMPERATURA */}
+      <Card className="bg-[#001F4D] text-white rounded-xl border-none shadow-md p-4">
+        <CardContent className="flex flex-col items-center text-center">
+          <Thermometer className="w-6 h-6 mb-2 text-red-400" />
+          <p className="text-sm text-blue-200">Temperatura</p>
+          <p className="text-2xl font-bold">
+            {data ? `${data.temperatura.toFixed(1).replace(".", ",")}°C` : '---'}
+          </p>
+        </CardContent>
+      </Card>
+
+      {/* UMIDADE */}
+      <Card className="bg-[#001F4D] text-white rounded-xl border-none shadow-md p-4">
+        <CardContent className="flex flex-col items-center text-center">
+          <Droplet className="w-6 h-6 mb-2 text-blue-400" />
+          <p className="text-sm text-blue-200">Umidade</p>
+          <p className="text-2xl font-bold">
+            {data ? `${data.umidade.toFixed(1).replace(".", ",")}%` : '---'}
+          </p>
+        </CardContent>
+      </Card>
+
+      {/* PRESENÇA */}
+      <Card className={clsx(
+        "rounded-xl border-none shadow-md p-4",
+        data?.presenca === "presente" ? "bg-green-600 text-white" : "bg-[#001F4D] text-white"
+      )}>
+        <CardContent className="flex flex-col items-center text-center">
+          <User className="w-6 h-6 mb-2" />
+          <p className="text-sm text-blue-200">Presença</p>
+          <p className="text-2xl font-bold">
+            {data?.presenca === "presente" ? "Detectada" : "Ausente"}
+          </p>
+        </CardContent>
+      </Card>
+
+    </div>
+  )
 }

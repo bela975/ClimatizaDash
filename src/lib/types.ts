@@ -1,6 +1,8 @@
 export interface SensorReading {
-  temperature: number;
-  humidity: number;
+  hora: string;
+  presenca: string;
+  temperatura: number;
+  umidade: number;
 }
 
 export interface SimulatedData {

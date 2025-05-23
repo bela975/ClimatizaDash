@@ -1,40 +1,48 @@
-"use client";
+"use client"
 
-import { SensorDisplay } from "../components/dashboard/sensor-display";
-import { SimulatedDisplay } from "../components/dashboard/simulated-display";
-import { TimeSeriesChart } from "../components/dashboard/time-series-chart";
-import { useMockData } from "../hooks/use-mock-data";
-import { useTimeSeriesData } from "@/hooks/useTimeSeriesData";
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
-import { Slider } from "../components/ui/slider"; // Assuming you might want manual control later
+import { SensorDisplay } from "../components/dashboard/sensor-display"
+import { SimulatedDisplay } from "../components/dashboard/simulated-display"
+import { TimeSeriesChart } from "../components/dashboard/time-series-chart"
+import { useMockData } from "../hooks/use-mock-data"
+import { useTimeSeriesData } from "@/hooks/useTimeSeriesData"
 import { PotentiometerPanel } from "../components/dashboard/PotentiometerPanel"
-import { useSensorData } from "@/hooks/useSensorData";
-import { useSimulatedData } from "@/hooks/useSimulatedData";
+import { useSensorData } from "@/hooks/useSensorData"
+import { useSimulatedData } from "@/hooks/useSimulatedData"
+
+import { Clock } from "lucide-react"
+import { OrbitingLogo } from "@/components/dashboard/OrbitingLogo"
+import { ClockNow } from "@/components/dashboard/ClockNow"
 
 export default function Home() {
-  const { potentiometerValue } = useMockData();
+  const { potentiometerValue } = useMockData()
   const timeSeriesData = useTimeSeriesData()
   const sensorData = useSensorData()
   const simulatedData = useSimulatedData()
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-4 md:p-12 lg:p-24 bg-background">
-      <h1 className="text-4xl font-bold text-primary mb-8">Sensor Dashboard</h1>
+    <main className="flex min-h-screen flex-col items-center px-4 md:px-12 lg:px-24 py-10 bg-[#f5f7fa] text-[#111]">
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl mb-8">
-      <PotentiometerPanel label="Temp. Simulada" firebaseKey="temperatura_simulada" type="percent" />
-      <PotentiometerPanel label="Umidade Simulada" firebaseKey="umidade_simulada" type="percent" />
-      <PotentiometerPanel label="Presença Simulada" firebaseKey="presenca_simulada" type="presence" />
+      <div className="w-full max-w-4xl flex flex-col items-center gap-6 mb-10">
+        <OrbitingLogo />
+
+        <div className="bg-[#e6f0ff] text-[#005BAC] rounded-xl shadow-md px-6 py-4 text-center flex flex-col items-center">
+          <Clock className="w-6 h-6 text-blue-500 mb-2" />
+          <p className="text-sm text-blue-500">Hora</p>
+          <p className="text-4xl font-extrabold tracking-widest drop-shadow-sm">
+            {sensorData?.hora ? sensorData.hora.slice(0, 5) : "--:--"}
+          </p>
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-6xl mb-8">
+      {/* DISPLAYS DE SENSOR */}
+      <div className="mb-10">
         <SensorDisplay data={sensorData} />
-        <SimulatedDisplay data={simulatedData} />
       </div>
 
+      {/* GRÁFICO */}
       <div className="w-full max-w-6xl">
         <TimeSeriesChart data={timeSeriesData} />
       </div>
     </main>
-  );
+  )
 }

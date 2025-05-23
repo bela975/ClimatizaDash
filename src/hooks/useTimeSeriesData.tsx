@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import { ref, onValue, database } from "../app/firebase";
+import { useEffect, useState } from "react"
+import { ref, onValue, query, limitToLast } from "firebase/database"
+import { database } from "../app/firebase"
 
 interface TimeSeriesDataPoint {
   timestamp: number;
@@ -10,65 +11,43 @@ interface TimeSeriesDataPoint {
   simulatedPeople?: number;
 }
 
-export function useTimeSeriesData(intervalMs = 5000) {
-  const [dataPoints, setDataPoints] = useState<TimeSeriesDataPoint[]>([]);
+export function useTimeSeriesData(limit = 50) {
+  const [dataPoints, setDataPoints] = useState<TimeSeriesDataPoint[]>([])
 
   useEffect(() => {
-    let sensorTemp = 0;
-    let sensorHumidity = 0;
-    let simulatedTemp = 0;
-    let simulatedHumidity = 0;
-    let simulatedPresence = false;
+    const leiturasRef = ref(database, "leituras")
+    const ultimasLeituras = query(leiturasRef, limitToLast(limit))
 
-    const listeners = [
-      { key: "temperatura_real", setter: (val: number) => (sensorTemp = val) },
-      { key: "umidade_real", setter: (val: number) => (sensorHumidity = val) },
-      { key: "temperatura_simulada", setter: (val: number) => (simulatedTemp = val) },
-      { key: "umidade_simulada", setter: (val: number) => (simulatedHumidity = val) },
-      { key: "presenca_simulada", setter: (val: boolean) => (simulatedPresence = val) },
-    ];
+    const unsubscribe = onValue(ultimasLeituras, (snapshot) => {
+      const val = snapshot.val()
+      if (!val) return
 
-    const unsubs = [
-        onValue(ref(database, "/sensores/temperatura_real"), (snap) => {
-          const val = snap.val();
-          if (typeof val === "number") sensorTemp = val;
-        }),
-        onValue(ref(database, "/sensores/umidade_real"), (snap) => {
-          const val = snap.val();
-          if (typeof val === "number") sensorHumidity = val;
-        }),
-        onValue(ref(database, "/sensores/temperatura_simulada"), (snap) => {
-          const val = snap.val();
-          if (typeof val === "number") simulatedTemp = val;
-        }),
-        onValue(ref(database, "/sensores/umidade_simulada"), (snap) => {
-          const val = snap.val();
-          if (typeof val === "number") simulatedHumidity = val;
-        }),
-        onValue(ref(database, "/sensores/presenca_simulada"), (snap) => {
-          const val = snap.val();
-          if (typeof val === "boolean") simulatedPresence = val;
-        }),
-      ];
+      const pontos: TimeSeriesDataPoint[] = Object.entries(val).map(([horaChave, leitura]) => {
+        const dados = leitura as any
 
-    const interval = setInterval(() => {
-      const point: TimeSeriesDataPoint = {
-        timestamp: Date.now(),
-        sensorTemp,
-        sensorHumidity,
-        simulatedTemp,
-        simulatedHumidity,
-        simulatedPeople: simulatedPresence ? 1 : 0,
-      };
+        return {
+          timestamp: parseHoraParaTimestamp(horaChave),
+          sensorTemp: dados.temperatura,
+          sensorHumidity: dados.umidade,
+          simulatedTemp: undefined, // ainda não temos isso aqui
+          simulatedHumidity: undefined,
+          simulatedPeople: dados.presenca === "presente" ? 1 : 0,
+        }
+      })
 
-      setDataPoints((prev) => [...prev.slice(-49), point]);
-    }, intervalMs);
+      setDataPoints(pontos)
+    })
 
-    return () => {
-      unsubs.forEach((unsub) => unsub());
-      clearInterval(interval);
-    };
-  }, [intervalMs]);
+    return () => unsubscribe()
+  }, [limit])
 
-  return dataPoints;
+  return dataPoints
+}
+
+// Exemplo de função para transformar "19:14:40" em timestamp
+function parseHoraParaTimestamp(horaStr: string): number {
+  const now = new Date()
+  const [h, m, s] = horaStr.split(":").map(Number)
+  now.setHours(h, m, s, 0)
+  return now.getTime()
 }
