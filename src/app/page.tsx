@@ -12,9 +12,7 @@ import { useSimulatedData } from "@/hooks/useSimulatedData"
 import { Clock } from "lucide-react"
 import { OrbitingLogo } from "@/components/dashboard/OrbitingLogo"
 import { ClockNow } from "@/components/dashboard/ClockNow"
-
-import ToggleSwitch from "@/components/ui/ToggleSwitch"
-
+import { LockableControl } from "@/components/ui/LockableControl"
 
 export default function Home() {
   const { potentiometerValue } = useMockData()
@@ -28,14 +26,16 @@ export default function Home() {
       <div className="w-full max-w-4xl flex flex-col items-center gap-6 mb-10">
         <OrbitingLogo />
 
-        {/* 🔥 Adicionando Toggle */}
-        <ToggleSwitch />
-        <div className="bg-[#e6f0ff] text-[#005BAC] rounded-xl shadow-md px-6 py-4 text-center flex flex-col items-center">
-          <Clock className="w-6 h-6 text-blue-500 mb-2" />
-          <p className="text-sm text-blue-500">Hora</p>
-          <p className="text-4xl font-extrabold tracking-widest drop-shadow-sm">
-            {sensorData?.hora ? sensorData.hora.slice(0, 5) : "--:--"}
-          </p>
+        <div className="flex gap-6 items-center">
+          <div className="bg-[#e6f0ff] text-[#005BAC] rounded-xl shadow-md px-6 py-4 text-center flex flex-col items-center">
+            <Clock className="w-6 h-6 text-blue-500 mb-2" />
+            <p className="text-sm text-blue-500">Hora</p>
+            <p className="text-4xl font-extrabold tracking-widest drop-shadow-sm">
+              {sensorData?.hora ? sensorData.hora.slice(0, 5) : "--:--"}
+            </p>
+          </div>
+
+          <LockableControl />
         </div>
       </div>
 
