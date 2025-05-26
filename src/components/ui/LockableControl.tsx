@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { motion } from "framer-motion"
-
 import { updateControlState } from "@/lib/updateControlState"
 
 export function LockableControl() {
@@ -12,14 +11,23 @@ export function LockableControl() {
   const toggleCover = () => {
     const newState = !coverOn
     setCoverOn(newState)
-    updateControlState({ coverOn: newState })
+
+    // Override = inverso de coverOn
+    updateControlState({
+      coverOn: newState,
+      override: !newState // override = true se tampa aberta
+    })
   }
 
   const toggleSwitch = () => {
-    if (!coverOn) {
+    if (!coverOn) { // só pode mudar se tampa estiver aberta
       const newState = !turnOn
       setTurnOn(newState)
-      updateControlState({ turnOn: newState })
+
+      updateControlState({
+        turnOn: newState,
+        estado: newState ? "ligado" : "desligado"
+      })
     }
   }
 
@@ -34,7 +42,7 @@ export function LockableControl() {
         }}
       />
 
-      {/* TAMPA TRANSLÚCIDA*/}
+      {/* TAMPA TRANSLÚCIDA */}
       <motion.div
         className="absolute w-36 h-36 border-4 rounded-md z-40 bg-white/30 backdrop-blur-sm flex flex-col items-center justify-center"
         animate={{ rotateX: coverOn ? 0 : -120 }}
@@ -59,11 +67,16 @@ export function LockableControl() {
       </motion.div>
 
       {/* BOTÃO FIXO */}
-      <div className="absolute z-30 w-14 h-28 bg-gray-100 border-2 rounded-md flex flex-col justify-start items-center pt-3 pb-2 shadow-inner relative"
+      <div
+        className="absolute z-30 w-14 h-28 bg-gray-100 border-2 rounded-md flex flex-col justify-start items-center pt-3 pb-2 shadow-inner relative"
         style={{ borderColor: "#001F4D" }}
       >
         {/* TEXTO ON/OFF */}
-        <span className={`text-xs font-bold mb-2 ${turnOn ? "text-green-600" : "text-gray-600"}`}>
+        <span
+          className={`text-xs font-bold mb-2 ${
+            turnOn ? "text-green-600" : "text-gray-600"
+          }`}
+        >
           {turnOn ? "ON" : "OFF"}
         </span>
 

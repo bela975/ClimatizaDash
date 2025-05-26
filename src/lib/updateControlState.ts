@@ -1,7 +1,7 @@
 import { ref, get, child, update } from "firebase/database"
 import { database } from "@/app/firebase"
 
-export async function updateControlState(data: { turnOn?: boolean; coverOn?: boolean }) {
+export async function updateControlState(data: { turnOn?: boolean; coverOn?: boolean; override?: boolean; estado?: "ligado" | "desligado" }) {
   try {
     const snapshot = await get(child(ref(database), "leituras"))
     if (!snapshot.exists()) return
