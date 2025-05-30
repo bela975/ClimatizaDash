@@ -25,11 +25,11 @@ interface TimeSeriesChartProps {
 
 const chartConfig = {
   sensorTemp: {
-    label: "Sensor Temp (°C)",
+    label: "Temperatura (°C)",
     color: "hsl(var(--chart-1))", // Blue
   },
   sensorHumidity: {
-    label: "Sensor Hum (%)",
+    label: "Umidade (%)",
     color: "hsl(var(--chart-2))", // Green
   },
   simulatedTemp: {
@@ -41,7 +41,7 @@ const chartConfig = {
     color: "hsl(var(--chart-4))", // Orange (example) - dotted
   },
   simulatedPeople: {
-    label: "People Count",
+    label: "Detector de Pessoas",
     color: "hsl(var(--chart-5))", // Purple (example) - dotted
   },
 } satisfies ChartConfig;
@@ -68,8 +68,8 @@ export function TimeSeriesChart({ data }: TimeSeriesChartProps) {
     return (
        <Card className="shadow-md transition-shadow hover:shadow-lg">
         <CardHeader>
-          <CardTitle className="text-primary">Time Series Data</CardTitle>
-          <CardDescription>Sensor and Simulated Readings Over Time</CardDescription>
+          <CardTitle className="text-primary">Histórico de Leituras</CardTitle>
+          <CardDescription>Temperatura, Umidade e Detecção de Pessoas em Tempo Real</CardDescription>
         </CardHeader>
         <CardContent>
            <div className="h-[300px] w-full flex items-center justify-center text-muted-foreground">
@@ -88,8 +88,8 @@ export function TimeSeriesChart({ data }: TimeSeriesChartProps) {
   return (
     <Card className="shadow-md transition-shadow hover:shadow-lg">
       <CardHeader>
-        <CardTitle className="text-primary">Time Series Data</CardTitle>
-        <CardDescription>Sensor and Simulated Readings Over Time</CardDescription>
+        <CardTitle className="text-primary">Histórico de Leituras</CardTitle>
+        <CardDescription>Temperatura, Umidade e Detecção de Pessoas em Tempo Real</CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[300px] w-full">

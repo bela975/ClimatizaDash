@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { updateControlState } from "@/lib/updateControlState"
 
@@ -8,19 +8,28 @@ export function LockableControl() {
   const [coverOn, setCoverOn] = useState(true)
   const [turnOn, setTurnOn] = useState(true)
 
+  // Atualiza no Firebase ao montar
+  useEffect(() => {
+    updateControlState({
+      coverOn,
+      override: !coverOn,
+      turnOn,
+      estado: turnOn ? "ligado" : "desligado"
+    })
+  }, [])
+
   const toggleCover = () => {
     const newState = !coverOn
     setCoverOn(newState)
 
-    // Override = inverso de coverOn
     updateControlState({
       coverOn: newState,
-      override: !newState // override = true se tampa aberta
+      override: !newState
     })
   }
 
   const toggleSwitch = () => {
-    if (!coverOn) { // só pode mudar se tampa estiver aberta
+    if (!coverOn) {
       const newState = !turnOn
       setTurnOn(newState)
 
