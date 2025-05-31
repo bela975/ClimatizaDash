@@ -26,23 +26,23 @@ interface TimeSeriesChartProps {
 const chartConfig = {
   sensorTemp: {
     label: "Temperatura (°C)",
-    color: "hsl(var(--chart-1))", // Blue
+    color: "#4C9AA9", // Azul
   },
   sensorHumidity: {
     label: "Umidade (%)",
-    color: "hsl(var(--chart-2))", // Green
+    color: "#FE7902", // Laranja
   },
   simulatedTemp: {
-    label: "Simulated Temp (°C)",
-    color: "hsl(var(--chart-3))", // Red (example) - dotted
+    label: "Temperatura Simulada (°C)",
+    color: "#A4D8E4", // Azul claro pastel (simulado)
   },
   simulatedHumidity: {
-    label: "Simulated Hum (%)",
-    color: "hsl(var(--chart-4))", // Orange (example) - dotted
+    label: "Umidade Simulada (%)",
+    color: "#FDB27F", // Laranja claro pastel (simulado)
   },
   simulatedPeople: {
     label: "Detector de Pessoas",
-    color: "hsl(var(--chart-5))", // Purple (example) - dotted
+    color: "#9C6ADE", // Roxo claro
   },
 } satisfies ChartConfig;
 

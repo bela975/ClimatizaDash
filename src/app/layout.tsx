@@ -19,13 +19,13 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={`${GeistSans.variable} ${GeistMono.variable} font-sans antialiased bg-[#f5f7fa] text-[#111]`}>
 
-        <header className="w-full flex items-center justify-between px-6 py-4 bg-[#005BAC] text-white shadow-md">
-          <CloudSun className="w-8 h-8" />
-          <h1 className="text-2xl font-bold tracking-wider uppercase text-center">
-            Climatiza Board
-          </h1>
-          <Droplets className="w-8 h-8" />
-        </header>
+          <header className="w-full flex items-center justify-between px-6 py-4 bg-[#4C9AA9] text-white shadow-md">
+            <CloudSun className="w-8 h-8" />
+            <h1 className="text-2xl font-bold tracking-wider uppercase text-center">
+              Climatiza Board
+            </h1>
+            <Droplets className="w-8 h-8" />
+          </header>
 
         <main className="min-h-screen">{children}</main>
 

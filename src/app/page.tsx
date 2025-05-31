@@ -45,13 +45,13 @@ const safeSensorData = {
 
         <div className="flex gap-6 items-center">
           <div
-            className="bg-[#e6f0ff] text-[#005BAC] rounded-xl shadow-md 
+            className="bg-[#4C9AA9]/20 text-[#4C9AA9] rounded-xl shadow-md 
                       w-[200px] min-w-[200px] max-w-[200px] 
                       h-[160px] min-h-[160px] max-h-[160px] 
                       flex flex-col items-center justify-center text-center"
           >
-            <Clock className="w-6 h-6 text-blue-500 mb-2" />
-            <p className="text-sm text-blue-500">Hora</p>
+            <Clock className="w-6 h-6 text-[#FE7902] mb-2" />
+            <p className="text-sm text-[#FE7902] font-semibold">Hora</p>
             <p className="text-4xl font-extrabold tracking-widest drop-shadow-sm">
               {safeSensorData.hora?.slice(0, 5)}
             </p>

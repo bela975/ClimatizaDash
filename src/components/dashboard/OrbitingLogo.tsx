@@ -27,14 +27,14 @@ export function OrbitingLogo() {
       style={{ filter: brightnessFilter }}
     >
       <motion.div className="absolute" style={{ x: sunX, y: sunY }}>
-        <Sun className="w-7 h-7 text-[#FDB813]" />
+        <Sun className="w-7 h-7 text-[#fe7902]" />
       </motion.div>
       <motion.div className="absolute" style={{ x: moonX, y: moonY }}>
-        <Moon className="w-7 h-7 text-slate-400" />
+        <Moon className="w-7 h-7 text-[#4c9aa9]" />
       </motion.div>
-      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#005BAC] drop-shadow-sm z-10">
+      <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-[#4c9aa9] drop-shadow-sm z-10">
         Climatiza<br />
-        <span className="text-[#FDB813]">Recife</span>
+        <span className="text-[#fe7902]">Recife</span>
       </h1>
     </motion.div>
   )
