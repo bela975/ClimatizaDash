@@ -28,18 +28,18 @@ export function LockableControl() {
     })
   }
 
-  const toggleSwitch = () => {
-    if (!coverOn) {
-      const newState = !turnOn
-      setTurnOn(newState)
+ const toggleSwitch = () => {
+  if (!coverOn) {
+    const newState = !turnOn;
+    setTurnOn(newState);
 
-      updateControlState({
-        turnOn: newState,
-        estado: newState ? "ligado" : "desligado"
-      })
-    }
+    updateControlState({
+      turnOn: newState,
+      override: true,  // Indicamos que é override!
+      estado: newState ? "ligado" : "desligado"
+    });
   }
-
+}
   return (
     <div className="relative w-60 h-60 flex items-center justify-center perspective">
       {/* BASE AZUL ESCURO */}
